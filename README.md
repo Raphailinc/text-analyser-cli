@@ -1,4 +1,4 @@
-# text-analyser-cli (бывш. text_analyser)
+# text-analyser-cli
 
 Упрощённый CLI для OCR на базе Pillow + Tesseract. Без Django/GUI — только удобные команды, синтетические примеры и базовые автотесты.
 
