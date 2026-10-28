@@ -1,44 +1,34 @@
-# text-analyser-cli
+# Text Analyser CLI
 
-Упрощённый CLI для OCR на базе Pillow + Tesseract. Без Django/GUI — только удобные команды, синтетические примеры и базовые автотесты.
+[![CI](https://github.com/Raphailinc/text-analyser-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/Raphailinc/text-analyser-cli/actions/workflows/ci.yml)
 
-## Установка
+[English](README.md) · [Русский](README.ru.md)
+
+Консольный OCR-эксперимент с предварительной обработкой изображений и переиспользуемым Python-модулем.
+
+## Возможности
+
+- Запуск Tesseract с настройкой языка и режима распознавания.
+- Контраст, инверсия и пороговая обработка изображения.
+- Генерация синтетического текста для демонстрации.
+- Проверка поведения приложения с подменой OCR-движка.
+
+## Локальный запуск
+
 ```bash
 python -m venv .venv
-. .venv/bin/activate
-pip install --upgrade pip
-pip install -r requirements.txt
-```
-Убедитесь, что `tesseract` установлен и доступен в PATH (или передайте `--tesseract-cmd`).
-
-## Использование
-```bash
-# OCR
-python -m text_analyser.cli ocr path/to/image.png --lang eng+rus --save-enhanced out/enhanced.png --json
-
-# Генерация синтетического образца
+source .venv/bin/activate
+python -m pip install -r requirements.txt
 python -m text_analyser.cli sample "Demo text" tmp/sample.png
-
-# Коротко
-python -m text_analyser.cli --help
+python -m text_analyser.cli ocr tmp/sample.png --lang eng --json
 ```
 
-Опции OCR:
-- `--lang` — языки Tesseract (`eng`, `rus+eng`, ...).
-- `--psm`/`--oem` — режимы Tesseract.
-- `--invert`/`--threshold` — простая обработка для повышения контраста.
-- `--save-enhanced` — сохранить улучшенное изображение перед OCR.
-- `--tesseract-cmd` — путь к исполняемому файлу Tesseract, если не в PATH.
-- `--json` — вернуть JSON с путём к файлам.
+## Проверки
 
-## Тесты
 ```bash
-pytest
+python -m pytest
 ```
-(использует заглушку OCR, поэтому Tesseract не требуется для тестов.)
 
-## Структура
-- `text_analyser/ocr.py` — генерация образца, улучшение изображения, вызов OCR.
-- `text_analyser/cli.py` — argparse CLI.
-- `tests/` — автотесты (pytest).
-- `requirements.txt` — зависимости.
+## Условия запуска и границы проекта
+
+Для реального OCR нужен установленный Tesseract и языковые пакеты. Тесты используют подмену движка и не измеряют точность распознавания.
